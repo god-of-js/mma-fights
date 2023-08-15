@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
-@Entity()
+@Entity('fighter')
 export class Fighter {
   @PrimaryGeneratedColumn()
   id!: number
@@ -20,7 +20,7 @@ export class Fighter {
   @Column()
   submissions!: number
 
-  @Column()
+  @Column({ type: 'float', nullable: true })
   weight!: number
 
   @Column()

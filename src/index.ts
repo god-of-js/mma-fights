@@ -8,7 +8,6 @@ import dotEnv from 'dotenv'
 dotEnv.config()
 
 import rateLimitConfig from './config/rateLimit'
-import { Server } from 'socket.io'
 import './data/db'
 import routes from './routes'
 
@@ -66,11 +65,6 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 app.use(errorHandler)
 
 const server = http.createServer(app)
-const io = new Server(server, {
-  cors: {
-    origin: '*',
-  },
-})
 
 app.use('/api/v0.1', routes)
 
