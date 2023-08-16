@@ -10,7 +10,15 @@ router.post(
   FighterController.createFighter
 )
 router.get('/', FighterController.loadFighters)
-router.get('/:fighterId', FighterMiddleware.checkIfFighterExists, FighterController.loadFighter)
-router.delete('/:fighterId', FighterMiddleware.checkIfFighterExists, FighterController.deleteFighter)
+router.get(
+  '/:fighterId',
+  FighterMiddleware.checkIfFighterExists,
+  FighterController.loadFighter
+)
+router.delete(
+  '/:fighterId',
+  FighterMiddleware.checkIfFighterExists,
+  FighterController.deleteFighter
+)
 
 export default router

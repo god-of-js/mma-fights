@@ -14,9 +14,9 @@ export class Event {
   @Column()
   date!: string
 
-  @Column('integer', { array: true, default: [], nullable: true })
+  @Column('integer', { array: true, default: [] })
   fights!: number[]
 
-  @Column('integer', { array: true, default: [], nullable: true })
+  @Column('integer', { array: true, default: [] })
   fighters!: number[]
 }

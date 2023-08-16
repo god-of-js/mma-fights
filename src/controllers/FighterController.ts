@@ -36,13 +36,7 @@ class FighterController {
       next(e)
     }
   }
-  updateFighter(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { fighterId } = req.params
-    } catch (err) {
-      next(err)
-    }
-  }
+
   async loadFighters(req: Request, res: Response, next: NextFunction) {
     try {
       const fighters = await getFighters()
@@ -66,6 +60,7 @@ class FighterController {
       next(err)
     }
   }
+
   async deleteFighter(req: Request, res: Response, next: NextFunction) {
     try {
       const { fighterId } = req.params

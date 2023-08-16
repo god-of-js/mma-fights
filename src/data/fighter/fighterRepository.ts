@@ -6,6 +6,7 @@ export function createFighter(fighter: Fighter) {
   const fighterRepository = AppDataSource.getRepository(FighterEntity)
   return fighterRepository.save(fighter)
 }
+
 export function getFighters() {
   const fighterRepository = AppDataSource.getRepository(FighterEntity)
   return fighterRepository.find({})
@@ -18,6 +19,5 @@ export function getFighter(fighterId: number) {
 
 export function deleteFighter(fighterId: number) {
   const fighterRepository = AppDataSource.getRepository(FighterEntity)
-
   return fighterRepository.delete(fighterId)
 }
