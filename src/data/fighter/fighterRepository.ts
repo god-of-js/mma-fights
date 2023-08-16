@@ -7,12 +7,12 @@ export function createFighter(fighter: Fighter) {
   return fighterRepository.save(fighter)
 }
 
-export function getFighters() {
+export function findFighters() {
   const fighterRepository = AppDataSource.getRepository(FighterEntity)
   return fighterRepository.find({})
 }
 
-export function getFighter(fighterId: number) {
+export function findFighter(fighterId: number) {
   const fighterRepository = AppDataSource.getRepository(FighterEntity)
   return fighterRepository.findOne({ where: { id: fighterId } })
 }

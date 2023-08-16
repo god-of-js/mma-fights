@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Fighter } from '@data/fighter/Fighter'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
-@Entity()
+@Entity({ name: 'event' })
 export class Event {
   @PrimaryGeneratedColumn()
   id!: number
@@ -17,6 +18,7 @@ export class Event {
   @Column('integer', { array: true, default: [] })
   fights!: number[]
 
+  // TODO: Investigate how to populate this field directly with one database read without using .find
   @Column('integer', { array: true, default: [] })
   fighters!: number[]
 }

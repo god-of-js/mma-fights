@@ -1,4 +1,4 @@
-import { getFighter } from '@data/fighter/fighterRepository'
+import { findFighter } from '@data/fighter/fighterRepository'
 import Respond from '@helpers/Respond'
 import { NextFunction, Request, Response } from 'express'
 
@@ -41,10 +41,10 @@ class FighterMiddleware {
     try {
       const { fighterId } = req.params
 
-      const fighter = await getFighter(Number(fighterId))
+      const fighter = await findFighter(Number(fighterId))
 
       if (!fighter)
-        return Respond.error(res, 'Fighter does not exist in our database')
+        return Respond.error(res, 'Fighter does not exist in our database', 404)
 
       next()
     } catch (err) {
@@ -52,4 +52,5 @@ class FighterMiddleware {
     }
   }
 }
+
 export default new FighterMiddleware()
