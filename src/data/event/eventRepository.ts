@@ -1,7 +1,7 @@
 import { AppDataSource } from '@data/db'
 import { Event as EventEntity } from './Event'
 import Event from '@interfaces/Event'
-import { Fighter } from '@data/fighter/Fighter'
+import { findFightersByCondition } from '@data/fighter/fighterRepository'
 
 export function createEvent(data: Event) {
   const eventRepository = AppDataSource.getRepository(EventEntity)
@@ -15,16 +15,28 @@ export function findEvents() {
   return eventRepository.find({})
 }
 
+export async function findAndUpdateEvent(
+  eventId: number,
+  data: Partial<Event>
+) {
+  const eventRepository = AppDataSource.getRepository(EventEntity)
+
+  const foundEvent = await eventRepository.findOne({ where: { id: eventId } })
+
+  return eventRepository.save({
+    ...foundEvent,
+    ...data,
+  })
+}
+
 export async function findEvent(eventId: number) {
   const eventRepository = AppDataSource.getRepository(EventEntity)
-  const fighterRepository = AppDataSource.getRepository(Fighter)
   const foundEvent = await eventRepository.findOne({ where: { id: eventId } })
 
   if (!foundEvent) return null
 
-  const fighterIds = foundEvent.fighters.map((fighterId) => ({ id: fighterId }))
-  const fighters = await fighterRepository.findBy(fighterIds)
-
+  if (!foundEvent.fighters || !foundEvent.fighters.length) return foundEvent
+  const fighters = await findFightersByCondition(foundEvent.fighters)
   return {
     ...foundEvent,
     fighters,

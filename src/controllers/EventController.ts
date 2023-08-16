@@ -1,4 +1,10 @@
-import { createEvent, findEvent, findEvents } from '@data/event/eventRepository'
+import {
+  createEvent,
+  findAndUpdateEvent,
+  findEvent,
+  findEvents,
+} from '@data/event/eventRepository'
+import { getFightsBy } from '@data/fight/fightRepository'
 import Respond from '@helpers/Respond'
 import { NextFunction, Request, Response } from 'express'
 
@@ -41,12 +47,25 @@ class EventController {
       next(e)
     }
   }
+  async getFightsOfAnEvent(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { eventId } = req.params
+
+      const fightOfEvents = await getFightsBy({ event: Number(eventId) })
+
+      return Respond.success(res, 'Event fetched successfully', fightOfEvents)
+    } catch (e) {
+      next(e)
+    }
+  }
 
   async updateEvent(req: Request, res: Response, next: NextFunction) {
     try {
-      const loadedEvents = await findEvents()
+      const { eventId } = req.params
 
-      return Respond.success(res, 'Events fetched successfully', loadedEvents)
+      const updatedEvent = await findAndUpdateEvent(Number(eventId), req.body)
+
+      return Respond.success(res, 'Events updated successfully', updatedEvent)
     } catch (e) {
       next(e)
     }

@@ -16,6 +16,16 @@ router.get(
   EventMiddleware.checkIfEventExists,
   EventController.getEvent
 )
+router.get(
+  '/:eventId/fights',
+  EventMiddleware.checkIfEventExists,
+  EventController.getFightsOfAnEvent
+)
+router.patch(
+  '/:eventId',
+  EventMiddleware.checkIfEventExists,
+  EventController.updateEvent
+)
 router.delete('/:eventId')
 
 export default router

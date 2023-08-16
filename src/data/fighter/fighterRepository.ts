@@ -12,6 +12,11 @@ export function findFighters() {
   return fighterRepository.find({})
 }
 
+export function findFightersByCondition(fighters: number[]) {
+  const fighterIds = fighters.map((fighter) => ({ id: fighter }))
+  const fighterRepository = AppDataSource.getRepository(FighterEntity)
+  return fighterRepository.findBy(fighterIds)
+}
 export function findFighter(fighterId: number) {
   const fighterRepository = AppDataSource.getRepository(FighterEntity)
   return fighterRepository.findOne({ where: { id: fighterId } })
